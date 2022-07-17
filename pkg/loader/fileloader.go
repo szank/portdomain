@@ -65,7 +65,7 @@ func NewFile(filePath string) (*File, error) {
 // Close can be called multiple times, but the file is closed only once.
 func (f *File) Close() error {
 	f.mu.Lock()
-	defer f.mmap.Unlock()
+	defer f.mu.Unlock()
 
 	f.onceClose.Do(func() {
 
@@ -134,11 +134,14 @@ func (f *File) findInitialBracket() error {
 		}
 		if delim.String() != "{" {
 			return fmt.Errorf("expected an opening bracket, got %s", t)
+		} else {
+			// not a fan of unnecessary else statements, but this should silencce the linter
+			f.initialBracketFound = true
+			break
 		}
-
-		f.initialBracketFound = true
-		return nil
 	}
+
+	return nil
 }
 
 func (f *File) skipJsonKey() error {
