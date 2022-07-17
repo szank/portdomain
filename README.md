@@ -8,6 +8,9 @@ a linux binary and a docker image.
 
 When using docker the input file dir must be mounted as a volume inside the container for the binary to be able to access it.
 
+# Running in docker
+`make docker && docker run portdomain:develop [path]` where the path is a path to the input file that's accessible from the container. 
+
 # Input file structure
 IMVHO it would have been easier if the input file contained an array of elements, and wasn't a one large object. That could be done by running `jq` with some magic 
 commands I guess. In the first place, there might be duplicate entries there, but what's the primary key? If it's the json key, then no duplicates are allowed, no?
