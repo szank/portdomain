@@ -3,6 +3,7 @@ package loader
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -85,6 +86,10 @@ func (f *File) Close() error {
 func (f *File) Next() (service.Port, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+
+	if f.closed {
+		return service.Port{}, errors.New("the input file has been clossed")
+	}
 
 	if !f.initialBracketFound {
 		err := f.findInitialBracket()
