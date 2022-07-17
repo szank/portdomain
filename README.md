@@ -26,6 +26,9 @@ Hence I've written dead simple mocks myself. Happy to discuss alternatives (I re
 # Git history rewrite(s)
 Did not do that, there are some small fix commits here and there. 
 
+# Testing
+Integration testing is not done. It should be. To do it properly I'd need to spin up at least sqlite, (dockerised postgres would be better), set up some migrations to create the table (goose), load up the provided example file and then check what's in the database. To me it seems like ~2 hours of work? Give or take. Not enough time. 
+
 # Things that should be done 
 * Support flags and `--help` output. One of the things that end up on the chopping block :(
 * Verify if `regions` and `alias` are arrays of strings or something else. I could not see any examples of non empty arrays, and if I have 2 hours

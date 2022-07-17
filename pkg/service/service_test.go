@@ -9,7 +9,7 @@ import (
 
 func TestPortDomainService(t *testing.T) {
 	t.Parallel()
-
+	// TODO: add failure tests
 	testCases := []struct {
 		name           string
 		recordProvider *mockRecordProvider

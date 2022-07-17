@@ -105,6 +105,8 @@ func (f *File) Next() (service.Port, error) {
 
 	finishOffset := f.decoder.InputOffset()
 
+	// Input validation is misssing here. I assume name should always be there for ex.
+	// Or coordinates should be valid if they are set. And so on.
 	port := &service.Port{}
 	err = json.Unmarshal(f.mmap[startOffset:finishOffset], port)
 	if err != nil {
