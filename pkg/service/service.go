@@ -29,8 +29,8 @@ type PortDomainService struct {
 	db Database
 }
 
-// Starts starts the service. Returns an error if any steps of the operation returns an error.
-// Note: we should handle transient errors.
+// Starts starts the service. Returns an error if the processing pipeline fails. Returns nil if the
+// whole pipeline is completed.
 func (s *PortDomainService) Start() error {
 	return nil
 }

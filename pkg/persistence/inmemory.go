@@ -1,6 +1,8 @@
 package persistence
 
-import "github.com/szank/portdomain/pkg/service"
+import (
+	"github.com/szank/portdomain/pkg/service"
+)
 
 // InMemoryDatabase stores the port information in the RAM. The data is lost
 // when the binary exists. This is a dummy implmementation of the persistence layer.
