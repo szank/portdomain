@@ -29,6 +29,10 @@ Did not do that, there are some small fix commits here and there.
 # Testing
 Integration testing is not done. It should be. To do it properly I'd need to spin up at least sqlite, (dockerised postgres would be better), set up some migrations to create the table (goose), load up the provided example file and then check what's in the database. To me it seems like ~2 hours of work? Give or take. Not enough time. 
 
+# Terminating the binary
+The best practice is to notify the components that the service is terminating (everything that can run for a bit listens on the termination context), 
+and every component during initialisation returns "I am done shutting down" channel, which it closes when it's done shutting down (i.e. current db transaction done, conn closed). Then the `main()` func waits for all these chans (or timeout) to fire so it can terminate. 
+
 # Things that should be done 
 * Support flags and `--help` output. One of the things that end up on the chopping block :(
 * Verify if `regions` and `alias` are arrays of strings or something else. I could not see any examples of non empty arrays, and if I have 2 hours

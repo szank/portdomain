@@ -1,4 +1,5 @@
 portdomain
+portdomain-linux
 vendor
 *.log
 ports.json
