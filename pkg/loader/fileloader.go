@@ -57,7 +57,6 @@ func NewFile(filePath string) (*File, error) {
 func (f *File) Close() error {
 	f.onceClose.Do(func() {
 		f.mu.Lock()
-		defer f.mmap.Unlock()
 
 		f.closed = true
 		if err := f.mmap.Unmap(); err != nil {
