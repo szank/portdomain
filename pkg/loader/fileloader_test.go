@@ -6,7 +6,6 @@ import (
 	"io"
 	"testing"
 
-	"github.com/edsrzf/mmap-go"
 	"github.com/stretchr/testify/require"
 )
 
@@ -54,7 +53,6 @@ func TestFileLoaderNoError(t *testing.T) {
 
 	loader := File{
 		decoder: json.NewDecoder(bytes.NewReader([]byte(input))),
-		mmap:    mmap.MMap(input),
 	}
 
 	port, err := loader.Next()
@@ -93,7 +91,6 @@ func TestFileLoaderInvalidData(t *testing.T) {
 
 	loader := File{
 		decoder: json.NewDecoder(bytes.NewReader([]byte(input))),
-		mmap:    mmap.MMap(input),
 	}
 
 	_, err := loader.Next()
