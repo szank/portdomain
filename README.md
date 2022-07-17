@@ -23,6 +23,9 @@ and the object key is not relevant to the excercise (as it's present in the unlo
 Generally,  I am using counterfeiter for mocks. In this ecxcercise the `Port` type is defined in the service package, which means an inport cycle however I slice the problem.
 Hence I've written dead simple mocks myself. Happy to discuss alternatives (I really like counterfeiter).
 
+# Git history rewrite(s)
+Did not do that, there are some small fix commits here and there. 
+
 # Things that should be done 
 * Support flags and `--help` output. One of the things that end up on the chopping block :(
 * Verify if `regions` and `alias` are arrays of strings or something else. I could not see any examples of non empty arrays, and if I have 2 hours
@@ -31,3 +34,4 @@ to finish, then I don't have time to figure out how to access these fields with 
 * Better makefile
 * Multi-stage dockerfile where we use one image to build the binary and then copy the result from that image into a clean base where the service runs
 * Input validation
+* Could come up with a lot more, really.

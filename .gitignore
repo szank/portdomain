@@ -1,3 +1,4 @@
 portdomain
 vendor
 *.log
+ports.json
