@@ -1,5 +1,11 @@
 package service
 
+import (
+	"errors"
+	"fmt"
+	"io"
+)
+
 // Port struct holds the information about ports (as in physical places for loading unloading ships,
 // not unsigned integers, it gets me every time ;))
 type Port struct {
@@ -23,21 +29,44 @@ type Database interface {
 	Upsert(Port) (bool, error)
 }
 
+type RecordProvider interface {
+	Next() (Port, error)
+}
+
 // PortDomainService contain the main business logic of persisting the incoming port data into a
 // persistent storage.
 type PortDomainService struct {
-	db Database
+	db       Database
+	provider RecordProvider
 }
 
 // Starts starts the service. Returns an error if the processing pipeline fails. Returns nil if the
 // whole pipeline is completed.
 func (s *PortDomainService) Start() error {
-	return nil
+	for {
+		record, err := s.provider.Next()
+		switch {
+		case err == nil:
+
+		case errors.Is(err, io.EOF):
+			// we are done
+			return nil
+		default:
+			return fmt.Errorf("error while retrieving records from the provider: %w", err)
+		}
+
+		// we currently don't care if it's an upsert
+		_, err = s.db.Upsert(record)
+		if err != nil {
+			return fmt.Errorf("error inserting the data into the database: %w", err)
+		}
+	}
 }
 
 // New returns a new instance of the PortDomainService
-func New(database Database) *PortDomainService {
+func New(database Database, provider RecordProvider) *PortDomainService {
 	return &PortDomainService{
-		db: database,
+		db:       database,
+		provider: provider,
 	}
 }
