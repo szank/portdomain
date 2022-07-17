@@ -33,7 +33,7 @@ func main() {
 		fmt.Println("Received a termination signal, finishing")
 	case err := <-serviceResult:
 		if err != nil {
-			fmt.Println("Error running the service: %v", err)
+			fmt.Printf("Error running the service: %v\n", err)
 			os.Exit(1)
 		}
 	}
