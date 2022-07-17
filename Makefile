@@ -3,3 +3,6 @@ build:
 
 docker:
 	docker build -t portdomain:develop .
+
+lint:
+	golangci-lint  run

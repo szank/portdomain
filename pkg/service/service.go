@@ -1,5 +1,7 @@
 package service
 
+// Port struct holds the information about ports (as in physical places for loading unloading ships,
+// not unsigned integers, it gets me every time ;))
 type Port struct {
 	Name        string    `json:"name"`
 	City        string    `json:"city"`
@@ -20,14 +22,20 @@ type Port struct {
 type Database interface {
 	Upsert(Port) (bool, error)
 }
+
+// PortDomainService contain the main business logic of persisting the incoming port data into a
+// persistent storage.
 type PortDomainService struct {
 	db Database
 }
 
+// Starts starts the service. Returns an error if any steps of the operation returns an error.
+// Note: we should handle transient errors.
 func (s *PortDomainService) Start() error {
 	return nil
 }
 
+// New returns a new instance of the PortDomainService
 func New(database Database) *PortDomainService {
 	return &PortDomainService{
 		db: database,

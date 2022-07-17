@@ -15,5 +15,11 @@ func main() {
 
 	service := service.New(db)
 
-	service.Start()
+	err := service.Start()
+	if err != nil {
+		fmt.Printf("Error running the service: %v", err)
+		os.Exit(1)
+	}
+
+	os.Exit(0)
 }
